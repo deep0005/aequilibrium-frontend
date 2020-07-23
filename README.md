@@ -1,2 +1,1 @@
-# aequilibrium-frontend
-Angular App for Aequilibrium
+# Angular App for Aequilibrium
