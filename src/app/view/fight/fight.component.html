@@ -1,0 +1,100 @@
+<section class="hero-section">
+    <div class="hero-slider">
+        <div class="hs-item set-bg">
+            <div class="hs-text bg-img ">
+                <form class="container input-form" [formGroup]="form" *ngIf="form">
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            Choose autobots team
+                        </div>
+                        <div class="col-md-9">
+                            <mat-select multiple class="input" formControlName="autobots">
+                                <mat-option *ngFor="let autobot of (autobots | async)" [value]="autobot.id">{{autobot.name}}</mat-option>
+
+                            </mat-select>
+                            <mat-error *ngFor="let validation of errorMessages.autobots">
+                                <mat-error class="error-message" *ngIf="form.get('autobots').hasError(validation.type)">{{validation.message}}</mat-error>
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            Choose decepticons team
+                        </div>
+
+                        <div class="col-md-9">
+                            <mat-select multiple class="input" formControlName="decepticons">
+                                <mat-option *ngFor="let decepticon of (decepticons | async)" [value]="decepticon.id">{{decepticon.name}}</mat-option>
+
+                            </mat-select>
+
+                            <mat-error *ngFor="let validation of errorMessages.decepticons">
+                                <mat-error class="error-message" *ngIf="form.get('decepticons').hasError(validation.type)">{{validation.message}}</mat-error>
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="user-panel" (click)="submit()">Fight</button>
+
+                        </div>
+                    </div>
+
+                    <div class="row results-panel" *ngIf="(results | async)">
+                        <div class="col-md-12 mb-3">
+                            <h4>Fight Results:</h4>
+
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Match Fought:
+                                </div>
+                                <div class="col-md-9">
+                                    {{(results | async).matchCount}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Match Status:
+                                </div>
+                                <div class="col-md-9">
+                                    {{(results | async).winningTeamType ? (results | async).winningTeamType + "S WON" :
+                                    "MATCH TIED"}}
+                                </div>
+                            </div>
+
+                            <div class="row" *ngIf="(results | async).winningTeamType">
+                                <div class="col-md-3">
+                                    Winning Team:
+                                </div>
+                                <div class="col-md-9">
+                                    {{ (results | async).winningTeamType + "S" }}
+                                </div>
+                            </div>
+
+                            <div class="row" *ngIf="(results | async).winningTeamType">
+                                <div class="col-md-3">
+                                    Winning Transformer:
+                                </div>
+                                <div class="col-md-9">
+                                    {{ (results | async).winningTransformer.name }}
+                                </div>
+                            </div>
+
+                            <div class="row" *ngIf="(results | async).winningTeamType">
+                                <div class="col-md-3">
+                                    Losing Survivor:
+                                </div>
+                                <div class="col-md-9">
+                                    {{ (results | async).losingSurvivor ? (results | async).losingSurvivor.name : "NO SURVIVORS" }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
